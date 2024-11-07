@@ -1,22 +1,66 @@
 #pragma once
 
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
 class point{
     public:
-        point();
-        point(double newX, double newY);
-        void pp();
+        point() : x(0), y(0) {}
+        point(double newX, double newY) : x(newX), y(newY) {}
 
-        double operator-(point p1);
-        double distance(point p1);
+        void pp() {
+            cout << "(" << x << ", " << y << ")";
+        }
 
-        bool operator==(point p1);
-        bool same(point p1);
+        double operator-(point p1) {
+            double xdif = pow(x - p1.x, 2);
+            double ydif = pow(y - p1.y, 2);
+            return sqrt(xdif + ydif);
+        }   
+        double distance(point p1) {
+            double xdif = pow(x - p1.x, 2);
+            double ydif = pow(y - p1.y, 2);
+            return sqrt(xdif + ydif);
+        }
 
-        bool operator!=(point p1);
-        bool notSame(point p1);
+        bool operator==(point p1) {
+            if (x == p1.x && y == p1.y) {
+                return true;
+            }
+            return false;
+        }
+        bool same(point p1) {
+            if (x == p1.x && y == p1.y) {
+                return true;
+            }
+            return false;
+        }
 
-        point operator/(point p1);
-        point midpoint(point p1);
+        bool operator!=(point p1) {
+            if (x != p1.x || y != p1.y) {
+                return true;
+            }
+            return false;
+        }
+        bool notSame(point p1) {
+            if (x != p1.x || y != p1.y) {
+                return true;
+            }
+            return false;
+        }
+
+        point operator/(point p1) {
+            double xsum = (this->x + p1.x) / 2;
+            double ysum = (this->y + p1.y) / 2;
+            return point(xsum, ysum);
+        }
+        point midpoint(point p1) {
+            double xsum = (this->x + p1.x) / 2;
+            double ysum = (this->y + p1.y) / 2;
+            return point(xsum, ysum);
+        }
 
         double x;
         double y;

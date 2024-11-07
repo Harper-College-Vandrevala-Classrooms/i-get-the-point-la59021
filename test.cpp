@@ -1,121 +1,127 @@
-#define CATCH_CONFIG_MAIN
-
-#include "catch.hpp"
+#include <cassert>
+#include <cmath>
 #include "Point.hpp"
-#include "iostream"
 using namespace std;
 
-point p1(-1, -1);
-point p2(0, 0);
-point p3(1, 1);
-point p4(4, 5);
-point p5(75, 64);
-point p6(1.6, 6.2);
-point p7(43.9, 41);
-point p8(40, 10000);
-point p9(0.001, 0.043);
-point p10(8.9, 54.6);
+int main() {
 
-TEST_CASE("Testing the \'-\' operator") {
-    REQUIRE((p1 - p1) == 0);
-    REQUIRE((p2 - p1) == double(sqrt(2)));
-    REQUIRE((p3 - p1) == double(2*sqrt(2)));
-    REQUIRE((p4 - p1) == double(sqrt(61)));
-    REQUIRE((p5 - p1) == double(sqrt(10001)));
-    REQUIRE((p6 - p1) == double(sqrt(58.6)));
-    REQUIRE((p7 - p1) == double(sqrt(3780.01)));
-    REQUIRE((p8 - p1) == double(sqrt(100021682)));
-    REQUIRE((p9 - p1) == double(sqrt(2.08985)));
-    REQUIRE((p10 - p1) == double(sqrt(3189.37)));
-}
+    point p1(-1, -1);
+    point p2(0, 0);
+    point p3(1, 1);
+    point p4(4, 5);
+    point p5(75, 64);
+    point p6(1.6, 6.2);
+    point p7(43.9, 41);
+    point p8(40, 10000);
+    point p9(0.1, 0.43);
+    point p10(8.9, 54.6);
 
-TEST_CASE("Testing the \'distance\' method") {
-    REQUIRE(p1.distance(p1) == 0);
-    REQUIRE(p2.distance(p1) == double(sqrt(2)));
-    REQUIRE(p3.distance(p1) == double(2*sqrt(2)));
-    REQUIRE(p4.distance(p1) == double(sqrt(61)));
-    REQUIRE(p5.distance(p1) == double(sqrt(10001)));
-    REQUIRE(p6.distance(p1) == double(sqrt(58.6)));
-    REQUIRE(p7.distance(p1) == double(sqrt(3780.01)));
-    REQUIRE(p8.distance(p1) == double(sqrt(100021682)));
-    REQUIRE(p9.distance(p1) == double(sqrt(2.08985)));
-    REQUIRE(p10.distance(p1) == double(sqrt(3189.37)));
-}
+    double Xs[10] = {p1.x, p2.x, p3.x, p4.x, p5.x, p6.x, p7.x, p8.x, p9.x, p10.x};
+    double Ys[10] = {p1.y, p2.y, p3.y, p4.y, p5.y, p6.y, p7.y, p8.y, p9.y, p10.y};
 
-TEST_CASE("Testing the \'==\' operator") {
-    REQUIRE((p1 == p1) == true);
-    REQUIRE((p2 == p1) == false);
-    REQUIRE((p3 == p1) == false);
-    REQUIRE((p4 == p1) == false);
-    REQUIRE((p5 == p1) == false);
-    REQUIRE((p6 == p1) == false);
-    REQUIRE((p7 == p1) == false);
-    REQUIRE((p8 == p1) == false);
-    REQUIRE((p9 == p1) == false);
-    REQUIRE((p10 == p1) == false);
-}
+    double distances[10] = {};
+    for (int i = 0; i < 10; i++) {
+        distances[i] = sqrt(pow(Xs[0] - Xs[i], 2) + pow(Ys[0] - Ys[i], 2));
+    }
 
-TEST_CASE("Testing the \'same\' method") {
-    REQUIRE(p1.same(p1) == true);
-    REQUIRE(p2.same(p1) == false);
-    REQUIRE(p3.same(p1) == false);
-    REQUIRE(p4.same(p1) == false);
-    REQUIRE(p5.same(p1) == false);
-    REQUIRE(p6.same(p1) == false);
-    REQUIRE(p7.same(p1) == false);
-    REQUIRE(p8.same(p1) == false);
-    REQUIRE(p9.same(p1) == false);
-    REQUIRE(p10.same(p1) == false);
-}
+    double midXs[10] = {};
+    for (int i = 0; i < 10; i++) {
+        midXs[i] = (Xs[0] + Xs[i]) / 2;
+    }
 
-TEST_CASE("Testing the \'!=\' operator") {
-    REQUIRE((p1 != p1) == false);
-    REQUIRE((p2 != p1) == true);
-    REQUIRE((p3 != p1) == true);
-    REQUIRE((p4 != p1) == true);
-    REQUIRE((p5 != p1) == true);
-    REQUIRE((p6 != p1) == true);
-    REQUIRE((p7 != p1) == true);
-    REQUIRE((p8 != p1) == true);
-    REQUIRE((p9 != p1) == true);
-    REQUIRE((p10 != p1) == true);
-}
+    double midYs[10] = {};
+    for (int i = 0; i < 10; i++) {
+        midYs[i] = (Ys[0] + Ys[i]) / 2;
+    }
 
-TEST_CASE("Testing the \'notSame\' method") {
-    REQUIRE(p1.notSame(p1) == false);
-    REQUIRE(p2.notSame(p1) == true);
-    REQUIRE(p3.notSame(p1) == true);
-    REQUIRE(p4.notSame(p1) == true);
-    REQUIRE(p5.notSame(p1) == true);
-    REQUIRE(p6.notSame(p1) == true);
-    REQUIRE(p7.notSame(p1) == true);
-    REQUIRE(p8.notSame(p1) == true);
-    REQUIRE(p9.notSame(p1) == true);
-    REQUIRE(p10.notSame(p1) == true);
-}
+    assert((p1 - p1) == distances[0]);
+    assert((p2 - p1) == distances[1]);
+    assert((p3 - p1) == distances[2]);
+    assert((p4 - p1) == distances[3]);
+    assert((p5 - p1) == distances[4]);
+    assert((p6 - p1) == distances[5]);
+    assert((p7 - p1) == distances[6]);
+    assert((p8 - p1) == distances[7]);
+    assert((p9 - p1) == distances[8]);
+    assert((p10 - p1) == distances[9]);
 
-TEST_CASE("Testing the \'/\' operator") {
-    REQUIRE(p1 / p1 == point(-1, -1));
-    REQUIRE(p2 / p1 == point(-0.5, -0.5));
-    REQUIRE(p3 / p1 == point(0, 0));
-    REQUIRE(p4 / p1 == point(1.5, 2));
-    REQUIRE(p5 / p1 == point(37, 31.5));
-    REQUIRE(p6 / p1 == point(0.3, 2.6));
-    REQUIRE(p7 / p1 == point(21.45, 20));
-    REQUIRE(p8 / p1 == point(19.5, 4999.5));
-    REQUIRE(p9 / p1 == point(-0.4995, -0.4785));
-    REQUIRE(p10 / p1 == point(3.95, -26.8));
-}
+    assert(p1.distance(p1) == distances[0]);
+    assert(p2.distance(p1) == distances[1]);
+    assert(p3.distance(p1) == distances[2]);
+    assert(p4.distance(p1) == distances[3]);
+    assert(p5.distance(p1) == distances[4]);
+    assert(p6.distance(p1) == distances[5]);
+    assert(p7.distance(p1) == distances[6]);
+    assert(p8.distance(p1) == distances[7]);
+    assert(p9.distance(p1) == distances[8]);
+    assert(p10.distance(p1) == distances[9]);
 
-TEST_CASE("Testing the \'midpoint\' method") {
-    REQUIRE(p1.midpoint(p1) == point(-1, -1));
-    REQUIRE(p2.midpoint(p1) == point(-0.5, -0.5));
-    REQUIRE(p3.midpoint(p1) == point(0, 0));
-    REQUIRE(p4.midpoint(p1) == point(1.5, 2));
-    REQUIRE(p5.midpoint(p1) == point(37, 31.5));
-    REQUIRE(p6.midpoint(p1) == point(0.3, 2.6));
-    REQUIRE(p7.midpoint(p1) == point(21.45, 20));
-    REQUIRE(p8.midpoint(p1) == point(19.5, 4999.5));
-    REQUIRE(p9.midpoint(p1) == point(-0.4995, -0.4785));
-    REQUIRE(p10.midpoint(p1) == point(3.95, 26.8));
+    assert((p1 == p1) == true);
+    assert((p2 == p1) == false);
+    assert((p3 == p1) == false);
+    assert((p4 == p1) == false);
+    assert((p5 == p1) == false);
+    assert((p6 == p1) == false);
+    assert((p7 == p1) == false);
+    assert((p8 == p1) == false);
+    assert((p9 == p1) == false);
+    assert((p10 == p1) == false);
+
+    assert(p1.same(p1) == true);
+    assert(p2.same(p1) == false);
+    assert(p3.same(p1) == false);
+    assert(p4.same(p1) == false);
+    assert(p5.same(p1) == false);
+    assert(p6.same(p1) == false);
+    assert(p7.same(p1) == false);
+    assert(p8.same(p1) == false);
+    assert(p9.same(p1) == false);
+    assert(p10.same(p1) == false);
+
+    assert((p1 != p1) == false);
+    assert((p2 != p1) == true);
+    assert((p3 != p1) == true);
+    assert((p4 != p1) == true);
+    assert((p5 != p1) == true);
+    assert((p6 != p1) == true);
+    assert((p7 != p1) == true);
+    assert((p8 != p1) == true);
+    assert((p9 != p1) == true);
+    assert((p10 != p1) == true);
+
+    assert(p1.notSame(p1) == false);
+    assert(p2.notSame(p1) == true);
+    assert(p3.notSame(p1) == true);
+    assert(p4.notSame(p1) == true);
+    assert(p5.notSame(p1) == true);
+    assert(p6.notSame(p1) == true);
+    assert(p7.notSame(p1) == true);
+    assert(p8.notSame(p1) == true);
+    assert(p9.notSame(p1) == true);
+    assert(p10.notSame(p1) == true);
+
+    assert(p1 / p1 == point(midXs[0], midYs[0]));
+    assert(p2 / p1 == point(midXs[1], midYs[1]));
+    assert(p3 / p1 == point(midXs[2], midYs[2]));
+    assert(p4 / p1 == point(midXs[3], midYs[3]));
+    assert(p5 / p1 == point(midXs[4], midYs[4]));
+    assert(p6 / p1 == point(midXs[5], midYs[5]));
+    assert(p7 / p1 == point(midXs[6], midYs[6]));
+    assert(p8 / p1 == point(midXs[7], midYs[7]));
+    assert(p9 / p1 == point(midXs[8], midYs[8]));
+    assert(p10 / p1 == point(midXs[9], midYs[9]));
+
+    assert(p1.midpoint(p1) == point(midXs[0], midYs[0]));
+    assert(p2.midpoint(p1) == point(midXs[1], midYs[1]));
+    assert(p3.midpoint(p1) == point(midXs[2], midYs[2]));
+    assert(p4.midpoint(p1) == point(midXs[3], midYs[3]));
+    assert(p5.midpoint(p1) == point(midXs[4], midYs[4]));
+    assert(p6.midpoint(p1) == point(midXs[5], midYs[5]));
+    assert(p7.midpoint(p1) == point(midXs[6], midYs[6]));
+    assert(p8.midpoint(p1) == point(midXs[7], midYs[7]));
+    assert(p9.midpoint(p1) == point(midXs[8], midYs[8]));
+    assert(p10.midpoint(p1) == point(midXs[9], midYs[9]));
+
+    cout << "All tests Passed\n";
+    return 0;
 }
