@@ -1,0 +1,11 @@
+1: clean
+	g++ main.cpp Point.cpp -o 1_user_input
+	./1_user_input
+
+2: clean
+	g++ test.cpp Point.cpp -o 2_tests
+	./2_tests
+	
+clean:
+	@rm -f 1_user_input
+	@rm -f 2_tests

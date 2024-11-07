@@ -1,0 +1,9 @@
+Create a Point class that takes an x- and y-coordinate in its constructor.
+Override the - operator on Point so that it calculates the distance between the two points.
+Override the == operator on Point so that it determines if two points are the same coordinate or different coordinates.
+Override the != operator on Point so that it determines if two points are not the same coordinate or different coordinates.
+Override the / operator on Point so that it determines midpoint between the two points.
+Test all of the methods on the class either through unit tests, a driver program, or both.
+
+d=sqrt[(x2-x1)^2 + (y2-y1)^2]
+p=[(x1+x2)/2 , (y1+y2)/2]
